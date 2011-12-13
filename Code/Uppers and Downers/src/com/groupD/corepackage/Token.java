@@ -1,13 +1,30 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.groupD.corepackage;
 
 /**
- *
- * @author fayimora
+ * @author madina
  */
-public class Token {
+public class Token
+{
+    private int position;
+    private String color;
+    public Token(String color)
+    {
+       this.position = 1;
+       this.color = color;
+    }
     
+    public String getColor()
+    {
+       return this.color;
+    }
+    
+    public int getPosition()
+    {
+       return this.position;
+    }
+    
+    public void move(int to)
+    {
+       this.position = to;
+    }
 }

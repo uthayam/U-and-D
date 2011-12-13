@@ -1,13 +1,16 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.groupD.corepackage;
 
 /**
  *
  * @author fayimora
  */
-public class ComputerPlayer {
+public class ComputerPlayer extends Player
+{
+    static int count=0;
+    private final String computerName = "ComputerPLayer"+(++count);
     
+    public ComputerPlayer(String name, Token token)
+    {
+        super(name, token);
+    }
 }

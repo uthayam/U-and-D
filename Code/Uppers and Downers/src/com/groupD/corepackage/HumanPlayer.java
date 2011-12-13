@@ -5,9 +5,18 @@
 package com.groupD.corepackage;
 
 /**
- *
  * @author fayimora
  */
-public class HumanPlayer {
+public class HumanPlayer extends Player 
+{
+    public HumanPlayer(String name, Token token)
+    {
+        super(name,token);
+    }
+    
+    public void moveToken(int to)
+    {
+        //TODO
+    }
     
 }
