@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.groupD.corepackage;
 
 /**
@@ -9,21 +5,21 @@ package com.groupD.corepackage;
  * @author Dominic
  */
 public class Cell {
-    private int CellNumber;
+    private int cellNumber;
     private Boolean isOccupied; 
-    private Token owner;
+    private Token owner;    // ?
     
     public Cell(int cellnumber){
-        CellNumber = cellnumber;
+        cellNumber = cellnumber;
+	isOccupied = false;
     }
     
     public int getCellNumber(){
-        return CellNumber;
+        return cellNumber;
     }
     
     public boolean isOccupied(){
-        return isOccupied;     
-        
+        return isOccupied;
     }
     
     public void fill(boolean b){
@@ -39,3 +35,4 @@ public class Cell {
         isOccupied = true;
     }
 }
+

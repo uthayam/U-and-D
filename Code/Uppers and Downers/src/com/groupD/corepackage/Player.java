@@ -1,15 +1,17 @@
 package com.groupD.corepackage;
+
 /**
  *
  * @author rahat
  */
+
 public abstract class Player {
-    private String name;
-    private Token token;
-    private int totalScore;
-    private int highestScore;
-    private int gamesPlayed;
-    private int gamesWon;
+    protected String name;
+    protected Token token;
+    protected int totalScore;
+    protected int highestScore;
+    protected int gamesPlayed;
+    protected int gamesWon;
 
     public Player(String name, Token token) {
         this(name,token,0,0,0,0);
@@ -22,6 +24,10 @@ public abstract class Player {
         this.highestScore = highestScore;
         this.gamesPlayed = gamesPlayed;
         this.gamesWon = gamesWon;
+    }
+
+    public String getName() {
+	return name;
     }
 
     public int getGamesPlayed() {
@@ -39,12 +45,15 @@ public abstract class Player {
     public int getTotalScore() {
         return totalScore;
     }
+	
+    public void updateTotalScore(int score){	
+	this.totalScore += score;
+    }
     
     public void updateScoreboard (boolean win) {
         if (win) {
             this.gamesWon++;
             this.gamesPlayed++;
-            this.totalScore++;
             if (totalScore > highestScore){
                 this.highestScore = this.totalScore;
             }
@@ -53,14 +62,14 @@ public abstract class Player {
             this.gamesPlayed++;
         }
     }
-
-    public Token getToken() {
-        return this.token;
-    }
-
-    public void moveToken(int reposition) {
-        throw new UnsupportedOperationException("Not yet implemented");
+    
+    public void moveToken(int to)                  
+    {
+	token.move(to);
     }
     
-    
+    public Token getToken()
+    {
+        return token;
+    }
 }

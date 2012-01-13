@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.groupD.corepackage;
 
 /**
@@ -13,10 +9,15 @@ public class HumanPlayer extends Player
     {
         super(name,token);
     }
+
+	public HumanPlayer(String name, Token token, int totalScore, int highestScore, int gamesPlayed, int gamesWon) {
+        super(name, token, totalScore, highestScore, gamesPlayed, gamesWon);
+    }
     
     public void moveToken(int to)
     {
-        //TODO
+        super.moveToken(to);
     }
     
 }
+

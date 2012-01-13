@@ -23,7 +23,7 @@ public class Die
         return numberRolled;
     }
 
-    private void setNumberRolled(int numberRolled)
+    public void setNumberRolled(int numberRolled)
         throws IllegalArgumentException{
              if(numberRolled < 0 || numberRolled > this.getNumberOfSides()){
                      throw new IllegalArgumentException("Must be a number between 1 and "+ this.getNumberOfSides());

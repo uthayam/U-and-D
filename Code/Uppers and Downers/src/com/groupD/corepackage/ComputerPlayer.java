@@ -7,10 +7,17 @@ package com.groupD.corepackage;
 public class ComputerPlayer extends Player
 {
     static int count=0;
-    private final String computerName = "ComputerPLayer"+(++count);
+    private final String computerName = "ComputerPlayer"+(++count);
     
     public ComputerPlayer(String name, Token token)
     {
         super(name, token);
     }
+
+    /*         AI         */
+    public int getDecision(int n)
+    {
+	return n;
+    }
 }
+

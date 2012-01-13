@@ -23,8 +23,13 @@ public class Token
        return this.position;
     }
     
+    public void setPosition(int pos)
+    {
+       position = pos;
+    }
+
     public void move(int to)
     {
-       this.position = to;
+       this.position += to;
     }
 }
