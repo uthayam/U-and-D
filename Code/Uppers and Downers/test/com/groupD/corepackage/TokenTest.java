@@ -16,6 +16,8 @@ import static org.junit.Assert.*;
  * @author fayimora
  */
 public class TokenTest {
+    Token aToken;
+    String color = "Red";
     
     public TokenTest() {
     }
@@ -37,8 +39,40 @@ public class TokenTest {
     }
 
     @Test
-    public void testSomeMethod() {
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testGetColor() {
+        System.out.println("testGetColor");
+        aToken= new Token(color);
+        String expResult = "Red";
+        String result = aToken.getColor();
+        assertEquals(expResult, result);
+    }
+
+    @Test
+    public void testGetPosition() {
+        System.out.println("testGetPosition");
+        aToken= new Token(color);
+        int expResult = 1;
+        int result = aToken.getPosition();
+        assertEquals(expResult, result);
+    }
+
+    @Test
+    public void testSetPosition() {
+        System.out.println("testSetPosition");
+        aToken= new Token(color);
+        int expResult = 8;
+        aToken.setPosition(8);
+        int result = aToken.getPosition();
+        assertEquals(expResult, result);
+    }
+
+    @Test
+    public void testMove() {
+        System.out.println("testMove");
+        aToken= new Token(color);
+        int expResult = 15;
+        aToken.move(14);
+        int result = aToken.getPosition();
+        assertEquals(expResult, result);
     }
 }
