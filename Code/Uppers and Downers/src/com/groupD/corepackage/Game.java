@@ -13,37 +13,37 @@ public class Game
     private Player p1;
     private Player p2;
     private Board board;
-    private int finalsq;
-    private ScoringSystem score;
-    private String id; 
-    private boolean finished;
-    private boolean started;
-    private boolean loaded;
-    private Player winner;
-    private Player onUpper;
-    private Player onDowner;
-    private Player onBonus;
-    private Player turn;
-    private Player bonusTurn;
-    private Player missedTurn;
-    private Player stuckPlayer;
-    private Player bumpedPlayer;
-    private int choice;
+	private int finalsq;
+	private ScoringSystem score;
+	private String id; 
+	private boolean finished;
+	private boolean started;
+	private boolean loaded;
+	private Player winner;
+	private Player onUpper;
+	private Player onDowner;
+	private Player onBonus;
+	private Player turn;
+	private Player bonusTurn;
+	private Player missedTurn;
+	private Player stuckPlayer;
+	private Player bumpedPlayer;
+	private int choice;
     
     public Game()
     {
-	this("Player");
+		this("Player");
     }
 	
     public Game(String name)
     {
-	this(name, "Invincible");
-        p2 = new ComputerPlayer("Invincible", new Token("blue"));
+		this(name, "Invincible");
+                p2 = new ComputerPlayer("Invincible", new Token("blue"));
     }
     
     public Game(String name1, String name2)
     {
-	this(name1, name2, 10, 10);
+		this(name1, name2, 10, 10);
     }
     
     public Game(String name1, String name2, int rows, int columns)
@@ -52,35 +52,35 @@ public class Game
         p1 = new HumanPlayer(name1, new Token("red"));
         p2 = new HumanPlayer(name2, new Token("blue"));
         board = new Board(rows, columns);
-	finalsq = board.getRows()*board.getColumns();
-	score = new ScoringSystem(board, true);
-	id = "";
-	finished = false;
-	started = false;
-	loaded = false;
-	choice = 0;
+		finalsq = board.getRows()*board.getColumns();
+		score = new ScoringSystem(board, true);
+		id = "";
+		finished = false;
+		started = false;
+		loaded = false;
+		choice = 0;
     }
 
-    public Game(Player p1, Player p2, Board b, ScoringSystem sc)
-    {
-	die = new Die();
-        this.p1 = p1;
-        this.p2 = p2;
-        board = b;
-	finalsq = board.getRows()*board.getColumns();
-	score = sc;
-	id = "";
-	finished = false;
-	started = false;
-	loaded = false;
-	choice = 0;
-    }
+	public Game(Player p1, Player p2, Board b, ScoringSystem sc)
+	{
+		die = new Die();
+                this.p1 = p1;
+                this.p2 = p2;
+                board = b;
+		finalsq = board.getRows()*board.getColumns();
+		score = sc;
+		id = "";
+		finished = false;
+		started = false;
+		loaded = false;
+		choice = 0;
+	}
 	
-    public Game(String name, int rows, int columns, int[] upperA, int[] upperB, int[] upperS, int[] downerA, int[] downerB, 
+	public Game(String name, int rows, int columns, int[] upperA, int[] upperB, int[] upperS, int[] downerA, int[] downerB, 
 		int[] downerS, int[] bonus, int[] bonusSc)
     {
         this(name, "", rows, columns, upperA, upperB, upperS, downerA, downerB, downerS, bonus, bonusSc);
-	p2 = new ComputerPlayer("Invincible", new Token("blue"));
+		p2 = new ComputerPlayer("Invincible", new Token("blue"));
     }
 	
     public Game(String name1, String name2, int rows, int columns, int[] upperA, int[] upperB, int[] upperS, int[] downerA, int[] downerB, 
@@ -90,31 +90,35 @@ public class Game
         p1 = new HumanPlayer(name1, new Token("red"));
         p2 = new HumanPlayer(name2, new Token("blue"));
         board = new Board(rows, columns, upperA, upperB, upperS, downerA, downerB, downerS, bonus, bonusSc);
-	finalsq = board.getRows()*board.getColumns();
-	score = new ScoringSystem(board, false);
-	id = "";
-	finished = false;
-	started = false;
-	loaded = false;
-	choice = 0;
+		finalsq = board.getRows()*board.getColumns();
+		score = new ScoringSystem(board, false);
+		id = "";
+		finished = false;
+		started = false;
+		loaded = false;
+		choice = 0;
     }
     
+	/**
+	 * The die is rolled, and an array containing the possible cells 
+	 * the player can move to is returned.
+	 */
     public int[] start() throws UnsupportedOperationException
     {
-	if(finished)
-	{
-            throw new UnsupportedOperationException("Cannot start a game that is finished.");
-	}
-	if(loaded)
-	{
-            throw new UnsupportedOperationException("Cannot start a game that is loaded.");
-	}
-	if(started)
-	{
-            throw new UnsupportedOperationException("Cannot start a game that is already started.");
-	}
-	started = true;
-	int[] advance = new int[2];
+		if(finished)
+		{
+			throw new UnsupportedOperationException("Cannot start a game that is finished.");
+		}
+		if(loaded)
+		{
+			throw new UnsupportedOperationException("Cannot start a game that is loaded.");
+		}
+		if(started)
+		{
+			throw new UnsupportedOperationException("Cannot start a game that is already started.");
+		}
+		started = true;
+		int[] advance = new int[2];
         die.roll();
         int result1 = die.getNumberRolled();
         die.roll();
@@ -126,67 +130,71 @@ public class Game
             die.roll();
             result2 = die.getNumberRolled();
         }
-	advance[0] = result1;
-	advance[1] = result2;
+		advance[0] = result1;
+		advance[1] = result2;
         if(result1>result2)
         {
-		turn = p1;
+			turn = p1;
         }
         else
         {
-		turn = p2;
+			turn = p2;
         }
-	return advance;
+		return advance;
     }
     
     public void end() throws UnsupportedOperationException
     {
-	if(finished)
-	{
-            throw new UnsupportedOperationException("Cannot end a game that is already finished.");
-	}
-	if(!started && !loaded)
-	{
-            throw new UnsupportedOperationException("Cannot end a game that is not started.");
-	}
-	finished = true;
-	started = false;
-	loaded = false;
-	Player p = this.getWinner();
-	p.updateScoreboard(true);
-	if(p.getToken().getColor().equals("red"))
-	{
-            p2.updateScoreboard(false);
-	}
-	else
-	{
-            p1.updateScoreboard(false);
-	}
+		if(finished)
+		{
+			throw new UnsupportedOperationException("Cannot end a game that is already finished.");
+		}
+		if(!started && !loaded)
+		{
+			throw new UnsupportedOperationException("Cannot end a game that is not started.");
+		}
+		finished = true;
+		started = false;
+		loaded = false;
+		Player p = null;
+                p = this.getWinner();
+                if(p != null)
+                {
+                    p.updateScoreboard(true);
+                    if(p.getToken().getColor().equals("red"))
+                    {
+			p2.updateScoreboard(false);
+                    }
+                    else
+                    {
+			p1.updateScoreboard(false);
+                    }
+                }
     }
     
     public void quit() throws UnsupportedOperationException
     {
-	if(finished)
-	{
-            throw new UnsupportedOperationException("Cannot quit a game that is finished.");
-	}
-	if(!started && !loaded)
-	{
-            throw new UnsupportedOperationException("Cannot quit a game that is not started.");
-	}
-	p1.updateScoreboard(false);
-	p2.updateScoreboard(false);
-	started = false;
-	loaded = false;
+		if(finished)
+		{
+			throw new UnsupportedOperationException("Cannot quit a game that is finished.");
+		}
+		if(!started && !loaded)
+		{
+			throw new UnsupportedOperationException("Cannot quit a game that is not started.");
+		}
+		p1.updateScoreboard(false);
+		p2.updateScoreboard(false);
+		started = false;
+		loaded = false;
     }
 	
     public void load(String gameId) throws UnsupportedOperationException
     {
-	if(started)
-	{
-            throw new UnsupportedOperationException("Cannot load a game that is started.");
-	}
-        Game lg = FileHandler.getGame(gameId);
+		/*if(started)
+		{
+			throw new UnsupportedOperationException("Cannot load a game that is started.");
+		}
+		Game lg = FileHandler.getGame(gameId);
 		die = lg.getDie();
 		p1 = lg.getPlayer1();
 		p2 = lg.getPlayer2();
@@ -201,19 +209,24 @@ public class Game
 		board = lg.getBoard();
 		score = lg.getScoringSystem();
 		this.id = lg.getId();
-        loaded = true;
+                loaded = true;*/
     }
     
     public void save() throws UnsupportedOperationException
     {
-		if(!started && !loaded)
+		/*if(!started && !loaded)
 		{
 			throw new UnsupportedOperationException("Cannot end a game that is not started.");
 		}
 		FileHandler.removeGame(id);
-		FileHandler.addGame(this);
+		FileHandler.addGame(this);*/
     }
-    
+
+    /**
+     * takes a player and assigns the current turn based on the color of the player's token.
+     * If the player is a human, it lets them take a human turn, otherwise computer turn.
+     * If the player has rolled a 6 on the die, they get a bonus turn.
+     */
     public void takeTurn(Player p) throws UnsupportedOperationException
     {	
 		if(finished)
@@ -251,6 +264,22 @@ public class Game
 		}
     }
 	
+	/**
+	 * gets the two possible moves the player can make. 
+	 * If the first choice is a negative value, it specifies 
+	 * that the player is stuck (with no decisions to make by 
+	 * themselves) and moves them forward, after checking if 
+	 * the position is occupied and bumping the player who is 
+	 * occupying the cell, if that is the case.
+	 * If the second choice exceeds the board size, then it 
+	 * specifies that the player has missed their turn.
+	 * Otherwise, it gets the player's choice, which could be 
+	 * set in a UI class, where the user enters their chosen move.
+	 * If the choice is equal to the default value of 0, it moves 
+	 * the player forward. If the player's choice is equal to the 
+	 * first option it moves the player backward, and moves them 
+	 * forward if it is equal to the second option.
+	 */
 	private void humanTurn(Player p)
 	{
 		int[] choice = calculateMove(p);
@@ -294,23 +323,35 @@ public class Game
 					movePlayer(p, die.getNumberRolled());
 				}	
 			}
-		}	
+		}
 	}
 	
+	/**
+	 * If the second choice is within the board, and the first 
+	 * choice is negative, it moves the player forward. If both 
+	 * choices are within the board, then it gets a decision from 
+	 * the computer player through a method that uses AI, and moves 
+	 * the player in the chosen direction.
+	 */
 	private void compuTurn(Player p)
 	{
 		int[] choice = calculateMove(p);
 				
 		if(choice[1]<=finalsq)
 		{
-			if(choice[0]<0)
+			if(choice[0]<1)
 			{
+                                stuckPlayer = p;
+				if(isOccupied(choice[1]))
+				{
+					bump(p);
+				}
 				movePlayer(p, die.getNumberRolled());
 				return;
 			}
 			
 			ComputerPlayer cp = (ComputerPlayer) p;
-			int decision = cp.getDecision(die.getNumberRolled());
+			int decision = cp.getDecision(die.getNumberRolled(), board);
 			
 			if(decision>0)
 			{
@@ -329,11 +370,10 @@ public class Game
 				movePlayer(p, -1*die.getNumberRolled());
 			}
 		}
-		
-		if(p.getToken().getPosition()==finalsq)
+                else
 		{
-			winner = p;
-		}
+			missedTurn = p;
+		}	
 	}
 	
 	public void rollDie() throws UnsupportedOperationException
@@ -357,6 +397,11 @@ public class Game
 		return choices;
 	}
 	
+	/**
+	 * calls the checkSpecialCell as long as the player occupies special 
+	 * cells (For example, the player can directly jump from an upper to 
+	 * a downer to an upper...).
+	 */
 	private void upperOrDowner(Player p)
 	{
 		int special = checkSpecialCell(p);
@@ -366,6 +411,14 @@ public class Game
 		}
 	}
 	
+	/**
+	 * If the cell that the player is currently occupying is 
+	 * an upper or a downer, it moves the player to that cell's 
+	 * destination. It then specifies that the player is on an 
+	 * upper or a downer and returns 1 or -1, respectively. If 
+	 * the cell is an ordinary or a bonus cell (which it specifies), 
+	 * it simply returns 0.
+	 */
 	private int checkSpecialCell(Player p)
 	{
 		int pos = p.getToken().getPosition();
@@ -382,17 +435,16 @@ public class Game
 				board.leaveCell(p.getToken().getPosition());
 				p.moveToken(cell.getCellNumber()-pos);
 				board.occupyCell(p.getToken().getPosition());
-				p.updateTotalScore(score.getScore(p.getToken().getPosition()));
 				if(cell.getCellType().name().equals("UPPER"))
-            	{
+                                {
 					onUpper = p;
 					return 1;
-            	}
-            	else if(cell.getCellType().name().equals("DOWNER"))
-            	{
+                                }
+                                else if(cell.getCellType().name().equals("DOWNER"))
+                                {
 					onDowner = p;
 					return -1;
-            	}
+                                }
 			}	
 			else
 			{
@@ -407,6 +459,10 @@ public class Game
 		return board.getCell(n).isOccupied();
 	}
 	
+	/**
+	 * Moves the opponent back to position 1;
+	 * p1 has a red token, p2 has a blue token.
+	 */
 	private void bump(Player p)
 	{
 		if(p.getToken().getColor().equals("red"))
@@ -425,12 +481,18 @@ public class Game
 		}
 	}
 	
+	/**
+	 * It moves the player to the given position, adds to their 
+	 * total score, checks if they have landed on an upper or a 
+	 * downer, and declares them as a winner if they have landed 
+	 * on the final cell.
+	 */
 	private void movePlayer(Player p, int n)
 	{	
 		board.leaveCell(p.getToken().getPosition());
 		p.moveToken(n);
-		p.updateTotalScore(score.getScore(p.getToken().getPosition()));
 		board.occupyCell(p.getToken().getPosition());
+		p.updateTotalScore(score.getScore(p.getToken().getPosition()));
 		upperOrDowner(p);
 		
 		if(p.getToken().getPosition()==finalsq)

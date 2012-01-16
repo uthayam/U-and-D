@@ -97,6 +97,11 @@ public class Board
     {
         return cells[n-1];
     }
+    
+    public Cell [] getCell()
+    {
+        return cells;
+    }
 
     public int[] getUppers()
     {
