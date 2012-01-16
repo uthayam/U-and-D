@@ -28,23 +28,23 @@ public class Main
 			{
 				game.setChoice(getValidMove(game.getTurn(), choice[0], choice[1]));
 			}
-        	game.takeTurn(game.getTurn());
+                        game.takeTurn(game.getTurn());
 			if(game.getWinner() != null)
 			{
 				endGame();
 			}
-			if(game.getStuckPlayer() != null)
+			if(game.getStuckPlayer() != null && (game.getStuckPlayer() instanceof HumanPlayer))
 			{
 				console.showLonePos(game.getStuckPlayer(), choice[1]);
 			}
-			if(game.getOnUpper() != null)
+			/*if(game.getOnUpper() != null)
 			{
 				console.showUpperMove(game.getOnUpper());
 			}
 			if(game.getOnDowner() != null)
 			{
 				console.showDownerMove(game.getOnDowner());
-			}
+			}*/
 			if(game.getBumpedPlayer() != null)
 			{
 				console.showBump(game.getBumpedPlayer());
@@ -65,13 +65,13 @@ public class Main
 	}
 	
 	private static void start()
-    {
+        {
 		console.showTitle();
-		while(!console.contPrompt().equals("c")){console.showInputError();}
+                putBreak();
 		console.showRules();
-		while(!console.contPrompt().equals("c")){console.showInputError();}
+                putBreak();
 		console.showCommands();
-		while(!console.contPrompt().equals("c")){console.showInputError();}
+                putBreak();
 		/*if(gameLoadingOption())
 		{
 			console.setGame(game);
@@ -80,48 +80,59 @@ public class Main
 			displayUpdates();
 			return;
 		}*/
-		String mode = "";
+		String mode = console.getGamingOption();
 		while(!mode.equals("o") && !mode.equals("t"))
 		{
+                        showAlt(mode);
 			mode = console.getGamingOption();
 		}
-		String boardType = "";
+		String boardType = console.getBoardType();
 		while(!boardType.equals("s") && !boardType.equals("c"))
 		{
+                        showAlt(boardType);
 			boardType = console.getBoardType();
 		}
 		if(mode.equals("o") && boardType.equals("s"))
 		{
 			String name = console.getName();
+                        checkName(name);
 			while(name.equals(game.getPlayer2().getName()))
 			{
 				console.showNameError();
 				name = console.getName();
+                                checkName(name);
 			}
 			game = new Game(name);
 			console.introducePlayers((HumanPlayer) game.getPlayer1(), (ComputerPlayer) game.getPlayer2());
 			putBreak();
+			//new BoardFrame();
 		}
 		else if(mode.equals("t") && boardType.equals("s"))
 		{
 			String name1 = "";
 			String name2 = "";
 			name1 = console.getNameOne();
+                        checkName(name1);
 			name2 = console.getNameTwo();
+                        checkName(name2);
 			while(name2.equals(name1))
 			{
 				console.showNameError();
 				name2 = console.getNameTwo();
+                                checkName(name2);
 			}
 			game = new Game(name1, name2);
+			//new BoardFrame();
 		}
 		else if(mode.equals("o") && boardType.equals("c"))
 		{
 			String name = console.getName();
+                        checkName(name);
 			while(name.equals(game.getPlayer2().getName()))
 			{
 				console.showNameError();
 				name = console.getName();
+                                checkName(name);
 			}
 			int rows = getRowSize();
 			int columns = getColumnSize(); 
@@ -148,11 +159,14 @@ public class Main
 			String name1 = "";
 			String name2 = "";
 			name1 = console.getNameOne();
+                        checkName(name1);
 			name2 = console.getNameTwo();
+                        checkName(name2);
 			while(name2.equals(name1))
 			{
 				console.showNameError();
 				name2 = console.getNameTwo();
+                                checkName(name2);
 			}
 			int rows = getRowSize();
 			int columns = getColumnSize(); 
@@ -289,6 +303,22 @@ public class Main
 			console.showInputError();
 		}
 	}
+        
+        private static void checkName(String input)
+	{
+		if(input.equals("u"))
+		{
+			console.showCommands();
+		}
+		else if(input.equals("l"))
+		{
+			console.showRules();
+		}
+		else if(input.equals("q"))
+		{
+			quitGame();
+		}
+	}
 	
 	/*private static boolean gameSavingOption()
 	{
@@ -329,9 +359,10 @@ public class Main
 	
 	private static int[] getUpperPos(int max)
 	{
+                
+		String input = console.getUpperPos();
 		try
 		{
-			String input = console.getUpperPos();
 			String[] strray = input.split(",");
 			int[] pos = new int[strray.length];
 			for(int i=0; i<strray.length; i++)
@@ -347,16 +378,16 @@ public class Main
 		}
 		catch(Exception e)
 		{
-			console.showInputError();
+			showAlt(input);
 			return getUpperPos(max);
 		}
 	}
 	
 	private static int[] getUpperDes(int[] pos, int max)
 	{
+		String input = console.getUpperDes();
 		try
 		{
-			String input = console.getUpperDes();
 			String[] strray = input.split(",");
 			if(strray.length != pos.length)
 			{
@@ -377,16 +408,16 @@ public class Main
 		}
 		catch(Exception e)
 		{
-			console.showInputError();
+			showAlt(input);
 			return getUpperDes(pos, max);
 		}
 	}
 	
 	private static int[] getUpperPoints(int[] pos)
 	{
+		String input = console.getUpperPoints();
 		try
 		{
-			String input = console.getUpperPoints();
 			String[] strray = input.split(",");
 			if(strray.length != pos.length)
 			{
@@ -402,16 +433,16 @@ public class Main
 		}
 		catch(Exception e)
 		{
-			console.showInputError();
+			showAlt(input);
 			return getUpperPoints(pos);
 		}
 	}
 	
 	private static int[] getDownerPos(int[] upperPos, int max)
 	{
+		String input = console.getDownerPos();
 		try
 		{
-			String input = console.getDownerPos();
 			String[] strray = input.split(",");
 			int[] pos = new int[strray.length];
 			for(int i=0; i<strray.length; i++)
@@ -427,16 +458,16 @@ public class Main
 		}
 		catch(Exception e)
 		{
-			console.showInputError();
+			showAlt(input);
 			return getDownerPos(upperPos, max);
 		}
 	}
 	
 	private static int[] getDownerDes(int[] pos, int max)
 	{
+		String input = console.getDownerDes();
 		try
 		{
-			String input = console.getDownerDes();
 			String[] strray = input.split(",");
 			if(strray.length != pos.length)
 			{
@@ -457,16 +488,16 @@ public class Main
 		}
 		catch(Exception e)
 		{
-			console.showInputError();
+                        showAlt(input);
 			return getDownerDes(pos, max);
 		}
 	}
 	
 	private static int[] getDownerPoints(int[] pos)
 	{
+		String input = console.getDownerPoints();
 		try
 		{
-			String input = console.getDownerPoints();
 			String[] strray = input.split(",");
 			if(strray.length != pos.length)
 			{
@@ -482,7 +513,7 @@ public class Main
 		}
 		catch(Exception e)
 		{
-			console.showInputError();
+                        showAlt(input);
 			return getDownerPoints(pos);
 		}
 	}
@@ -504,9 +535,9 @@ public class Main
 	
 	private static int[] getBonusPos(int[] upperPos, int[] downerPos, int max)
 	{
+		String input = console.getBonusPos();
 		try
 		{
-			String input = console.getBonusPos();
 			String[] strray = input.split(",");
 			int[] pos = new int[strray.length];
 			for(int i=0; i<strray.length; i++)
@@ -522,16 +553,16 @@ public class Main
 		}
 		catch(Exception e)
 		{
-			console.showInputError();
+                        showAlt(input);
 			return getBonusPos(upperPos, downerPos, max);
 		}
 	}
 	
 	private static int[] getBonusPoints(int[] pos)
 	{
+		String input = console.getBonusPoints();
 		try
 		{
-			String input = console.getBonusPoints();
 			String[] strray = input.split(",");
 			if(strray.length != pos.length)
 			{
@@ -547,7 +578,7 @@ public class Main
 		}
 		catch(Exception e)
 		{
-			console.showInputError();
+                        showAlt(input);
 			return getBonusPoints(pos);
 		}
 	}
@@ -566,9 +597,10 @@ public class Main
 	
 	private static int getRowSize()
 	{
+		String input = console.getRowSize();
 		try
 		{
-			int size = Integer.parseInt(console.getRowSize());
+			int size = Integer.parseInt(input);
 			while(size<4 || size>26)
 			{
 				console.showInputError();
@@ -578,16 +610,17 @@ public class Main
 		}
 		catch(Exception e)
 		{
-			console.showInputError();
+                        showAlt(input);
 			return getRowSize();
 		}
 	}
 	
 	private static int getColumnSize()
 	{
+                String input = console.getColumnSize();
 		try
 		{
-			int size = Integer.parseInt(console.getColumnSize());
+			int size = Integer.parseInt(input);
 			while(size<4 || size>26)
 			{
 				console.showInputError();
@@ -597,7 +630,7 @@ public class Main
 		}
 		catch(Exception e)
 		{
-			console.showInputError();
+                        showAlt(input);
 			return getColumnSize();
 		}
 	}
@@ -619,7 +652,10 @@ public class Main
 		{
 			return;
 		}*/
-		game.quit();
+                if(game.isStarted())
+                {
+                    game.quit();
+                }
 		console.showEndCredits();
 		System.exit(0);
     }
