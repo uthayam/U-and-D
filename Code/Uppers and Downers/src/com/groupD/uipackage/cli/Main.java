@@ -16,11 +16,14 @@ public class Main
 	
 	public static void main(String[] args)
 	{
+            String repeat = "y";
+            while(repeat.equals("y"))
+            {
 		game = new Game();
 		console = new CLI(game);
 		String input = "";
 		start();
-		while(true)
+		while(!game.isFinished())
 		{
 			rollDie(game.getTurn());
 			int[] choice = game.getChoices(game.getTurn());
@@ -56,12 +59,18 @@ public class Main
 			}
 			console.move(game.getPlayer1());
 			console.move(game.getPlayer2());
-			displayUpdates();
+                        if(!game.isFinished())
+                        {
+                            displayUpdates();
+                        }
 			if(game.getBonusTurn() != null && (game.getTurn() instanceof HumanPlayer))
 			{
 				console.showBonusTurn(game.getBonusTurn());
 			}
 		}
+                repeat = getRepeat();
+            }
+            terminate();
 	}
 	
 	private static void start()
@@ -105,7 +114,7 @@ public class Main
 			game = new Game(name);
 			console.introducePlayers((HumanPlayer) game.getPlayer1(), (ComputerPlayer) game.getPlayer2());
 			putBreak();
-			//new BoardFrame();
+			new BoardFrame();
 		}
 		else if(mode.equals("t") && boardType.equals("s"))
 		{
@@ -122,7 +131,7 @@ public class Main
                                 checkName(name2);
 			}
 			game = new Game(name1, name2);
-			//new BoardFrame();
+			new BoardFrame();
 		}
 		else if(mode.equals("o") && boardType.equals("c"))
 		{
@@ -197,7 +206,7 @@ public class Main
 		console.showSymbols(game.getPlayer1(), game.getPlayer2());
 		putBreak();
 		displayUpdates();
-    }
+        }
 	
 	private static void putBreak()
 	{
@@ -642,12 +651,16 @@ public class Main
 		console.move(game.getPlayer2());
 		displayUpdates();
 		console.displayWinner(game.getWinner());
-		console.showEndCredits();
-		System.exit(0);
 	}
+        
+        private static void terminate()
+        {
+            console.showEndCredits();
+            System.exit(0);
+        }
 	
 	private static void quitGame()
-    {
+        {
 		/*if(!gameSavingOption() && !game.isFinished())
 		{
 			return;
@@ -656,7 +669,17 @@ public class Main
                 {
                     game.quit();
                 }
-		console.showEndCredits();
-		System.exit(0);
-    }
+		terminate();
+        }
+        
+        private static String getRepeat()
+        {
+            String repeat = console.getRepeat();
+            while(!repeat.equals("y") && !repeat.equals("n"))
+            {
+                console.showInputError();
+                repeat = console.getRepeat();
+            }
+            return repeat;
+        }
 }

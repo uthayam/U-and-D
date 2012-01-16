@@ -98,19 +98,19 @@ public class CLI
 	
 	public String getName()
 	{
-		System.out.print("\nEnter your name: ");
+		System.out.print("\nEnter your name (without space): ");
 		return in.next();
 	}
 	
 	public String getNameOne()
 	{
-		System.out.print("\nPlayer 1, enter your name: ");
+		System.out.print("\nPlayer 1, enter your name (without space): ");
 		return in.next();
 	}
 
 	public String getNameTwo()
 	{
-		System.out.print("\nPlayer 2, enter your name: ");
+		System.out.print("\nPlayer 2, enter your name (without space): ");
 		return in.next();
 	}
 	
@@ -370,6 +370,12 @@ public class CLI
 		return gameBoard.getSymbol(t);
 	}
 	
+        public String getRepeat()
+        {
+            System.out.print("Would you like another game? (y/n): ");
+            return in.next();
+        }
+        
 	/**
 	 * This inner class provides an ASCII representation 
 	 * of the board belonging to the game used to create 
@@ -431,8 +437,10 @@ public class CLI
 			blue = 1;
 			redplaced = false;
 			blueplaced = false;
-			bluesymbol = "♟";
-			redsymbol = "♙";
+			//bluesymbol = "♟";
+                        bluesymbol = "b";
+			//redsymbol = "♙";
+			redsymbol = "a";
 			space = "";
 			dash = "";
 			makeExtra();
@@ -866,11 +874,13 @@ public class CLI
 		{
 			if(t.getColor().equals("red"))
 			{
-				return "♙";
+				//return "♙";
+                                return "a";
 			}
 			else if(t.getColor().equals("blue"))
 			{
-				return "♟";
+				//return "♟";
+                                return "b";
 			}
 			else
 			{
@@ -964,9 +974,15 @@ public class CLI
 
 		private String one()
 		{
-			String die = space+" _______\n";
+			/*String die = space+" _______\n";
 			die += space+"|       |\n";
 			die += space+"|   •   |\n";
+			die += space+"|       |\n";
+			die += space+"|_______|";*/
+                        
+                        String die = space+" _______\n";
+			die += space+"|       |\n";
+			die += space+"|   *   |\n";
 			die += space+"|       |\n";
 			die += space+"|_______|";
 			return die;
@@ -974,50 +990,80 @@ public class CLI
 
 		private String two()
 		{
-			String die = space+" _______\n";
+			/*String die = space+" _______\n";
 			die += space+"| •     |\n";
 			die += space+"|       |\n";
 			die += space+"|     • |\n";
+			die += space+"|_______|\n";*/
+                        
+                        String die = space+" _______\n";
+			die += space+"| *     |\n";
+			die += space+"|       |\n";
+			die += space+"|     * |\n";
 			die += space+"|_______|\n";
 			return die;
 		}
 
 		private String three()
 		{
-			String die = space+" _______\n";
+			/*String die = space+" _______\n";
 			die += space+"| •     |\n";
 			die += space+"|   •   |\n";
 			die += space+"|     • |\n";
+			die += space+"|_______|\n";*/
+                    
+                        String die = space+" _______\n";
+			die += space+"| *     |\n";
+			die += space+"|   *   |\n";
+			die += space+"|     * |\n";
 			die += space+"|_______|\n";
 			return die;
 		}
 
 		private String four()
 		{
-			String die = space+" _______\n";
+			/*String die = space+" _______\n";
 			die += space+"| •   • |\n";
 			die += space+"|       |\n";
 			die += space+"| •   • |\n";
+			die += space+"|_______|";*/
+                        
+                        String die = space+" _______\n";
+			die += space+"| *   * |\n";
+			die += space+"|       |\n";
+			die += space+"| *   * |\n";
 			die += space+"|_______|";
 			return die;
 		}
 
 		private String five()
 		{
-			String die = space+" _______\n";
+			/*String die = space+" _______\n";
 			die += space+"| •   • |\n";
 			die += space+"|   •   |\n";
 			die += space+"| •   • |\n";
+			die += space+"|_______|";*/
+                        
+                        String die = space+" _______\n";
+			die += space+"| *   * |\n";
+			die += space+"|   *   |\n";
+			die += space+"| *   * |\n";
 			die += space+"|_______|";
 			return die;
 		}
 
 		private String six()
 		{
-			String die = space+" _______\n";
+			/*String die = space+" _______\n";
 			die += space+"| •   • |\n";
 			die += space+"| •   • |\n";
 			die += space+"| •   • |\n";
+			die += space+"|_______|";*/
+                        
+                        String die = space+" _______\n";
+			die += space+"| *   * |\n";
+			die += space+"| *   * |\n";
+			die += space+"| *   * |\n";
 			die += space+"|_______|";
 			return die;
 		}
