@@ -16,6 +16,7 @@ import static org.junit.Assert.*;
  * @author fayimora
  */
 public class DieTest {
+    Die aDie;
     
     public DieTest() {
     }
@@ -37,8 +38,42 @@ public class DieTest {
     }
 
     @Test
-    public void testSomeMethod() {
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testGetNumberOfSides() {
+        System.out.println("getNumberOfSides");
+        aDie = new Die();
+        int expResult = 6;
+        int result = aDie.getNumberOfSides();
+        assertEquals(expResult, result);
+    }
+    
+    @Test
+    public void testGetNumberRolled() {
+
+        System.out.println("getNumberRolled");
+        aDie = new Die();
+        aDie.setNumberRolled(5);
+        assertEquals(aDie.getNumberRolled(), 5);
+
+
+
+    }
+
+     @Test
+    public void testSetNumberRolled() {
+        System.out.println("setNumberRolled");
+        aDie = new Die();
+        aDie.setNumberRolled(4);
+        assertEquals(aDie.getNumberRolled(), 4);
+    }
+
+    @Test
+    public void testRoll() {
+        System.out.println("roll");
+        Die instance = new Die();
+        instance.roll();
+        int result = instance.getNumberRolled();
+        assertTrue(result>0);
+        assertTrue(result<6);
+
     }
 }

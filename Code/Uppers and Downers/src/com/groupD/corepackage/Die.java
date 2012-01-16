@@ -14,7 +14,7 @@ public class Die
         this.numberOfSides = 6;
     }
 
-    private int getNumberOfSides() {
+    public int getNumberOfSides() {
         return numberOfSides;
     }
 
@@ -23,8 +23,8 @@ public class Die
         return numberRolled;
     }
 
-    public void setNumberRolled(int numberRolled)
-        throws IllegalArgumentException{
+    public void setNumberRolled(int numberRolled) throws IllegalArgumentException
+    {
              if(numberRolled < 0 || numberRolled > this.getNumberOfSides()){
                      throw new IllegalArgumentException("Must be a number between 1 and "+ this.getNumberOfSides());
              }
